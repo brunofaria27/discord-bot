@@ -1,0 +1,13 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "repository": "https://github.com/brunofaria27/discord-bot.git",
+  "author": "Lucas Coelho <58010418+LucasVinicius314@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/index.js",
+    "build": "tsc",
+    "postinstall": "yarn run build"
+  }
+}
