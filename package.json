@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "discord-bot",
   "version": "1.0.0",
   "main": "build/index.js",
@@ -14,6 +15,7 @@
     "@types/node": "^18.11.16"
   },
   "dependencies": {
-    "discord.js": "^14.7.1"
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
   }
 }

@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
-    "lib": ["ES2021"],
+    "lib": [
+      "ES2021"
+    ],
     "moduleResolution": "Node",
     "outDir": "build",
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "target": "ES2022"
   },
-  "exclude": ["build", "node_modules"],
-  "include": ["src"]
+  "exclude": [
+    "build",
+    "node_modules"
+  ],
+  "include": [
+    "src"
+  ]
 }
