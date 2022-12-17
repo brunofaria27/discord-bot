@@ -6,31 +6,7 @@ const commands: AppCommand[] = [
     {
         name: 'ping',
         description: 'Replies with Pong!',
-    },
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
+    }
 ];
 
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
