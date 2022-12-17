@@ -3,6 +3,8 @@ import * as dotenv from 'dotenv'
 import { Client, GatewayIntentBits } from 'discord.js'
 
 import { configureRest } from './rest'
+import { pingCommand } from './commands/pingCommand'
+import { ticketCommand } from './commands/ticketCommand'
 
 dotenv.config()
 
@@ -26,9 +28,10 @@ client.on('interactionCreate', async (interaction) => {
 
   switch (interaction.commandName) {
     case 'ping':
-      await interaction.reply('Pong!')
+      pingCommand(interaction)
       break
-    default:
+    case 'ticket':
+      ticketCommand(interaction)
       break
   }
 })
