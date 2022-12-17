@@ -1,4 +1,5 @@
 import discord
+from discord.ext import commands
 
 import datetime
 
@@ -16,7 +17,7 @@ async def on_ready():
     print("Username: %s"%client.user.name)
     print("ID: %s"%client.user.id)
     print("----------------------")
-    
+
 @client.event
 async def on_member_join(member):
     guild = client.get_guild(1053356019541098558)
@@ -25,6 +26,6 @@ async def on_member_join(member):
     embed=discord.Embed(title=f"Bem-vindo, {member.name}", description=f"Muito feliz em ter você na nossa família {member.guild.name}!") # F-Strings!
     embed.set_thumbnail(url=member.avatar_url)
     await channel.send(embed=embed)  
-    await member.send(f'Bem-vindo, agora basta pedir a setagem e esperar!')  
+    await member.send(f'Bem-vindo, agora basta pedir a setagem e esperar!') 
 
 client.run(token)
