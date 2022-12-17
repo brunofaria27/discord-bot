@@ -13,9 +13,9 @@ const commands: AppCommand[] = [
   },
 ]
 
-const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN)
-
 export const configureRest = async () => {
+  const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN)
+
   try {
     console.log('Started refreshing application (/) commands.')
 
