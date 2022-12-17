@@ -1,4 +1,4 @@
 export type AppCommand = {
-  name: string,
+  name: string
   description: string
 }

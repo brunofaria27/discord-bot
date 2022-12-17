@@ -1,34 +1,36 @@
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv'
 
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits } from 'discord.js'
 
-import { configureRest } from "./rest";
+import { configureRest } from './rest'
 
 dotenv.config()
 
 configureRest()
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMembers,
-    ]
-});
-
-client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand()) return;
-
-    console.log(`attempting to execute command ${interaction.commandName}`);
-
-    switch (interaction.commandName) {
-        case 'ping':
-            await interaction.reply('Pong!');
-            break;
-        default:
-            break;
-    }
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+  ],
 })
 
-client.login(process.env.DISCORD_TOKEN);
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isCommand()) {
+    return
+  }
+
+  console.log(`attempting to execute command ${interaction.commandName}`)
+
+  switch (interaction.commandName) {
+    case 'ping':
+      await interaction.reply('Pong!')
+      break
+    default:
+      break
+  }
+})
+
+client.login(process.env.DISCORD_TOKEN)
