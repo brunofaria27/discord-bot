@@ -9,5 +9,11 @@
     "start": "node build/index.js",
     "build": "tsc",
     "postinstall": "yarn run build"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.16"
+  },
+  "dependencies": {
+    "discord.js": "^14.7.1"
   }
 }

@@ -11,7 +11,8 @@
       "outFiles": ["${workspaceFolder}/build/**/*.js"],
       "env": {
         "NODE_ENV": "dev"
-      }
+      },
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
