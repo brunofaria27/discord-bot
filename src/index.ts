@@ -3,17 +3,14 @@ import * as dotenv from 'dotenv'
 import {
   ActionRowBuilder,
   ActivityType,
-  AnyComponentBuilder,
-  ButtonBuilder,
-  ButtonStyle,
   ChannelType,
   Client,
   ComponentType,
   EmbedBuilder,
   Events,
   GatewayIntentBits,
-  Message,
   StringSelectMenuBuilder,
+  TextChannel,
 } from 'discord.js'
 
 import { configureRest } from './rest'
@@ -71,110 +68,112 @@ client.on('interactionCreate', async (interaction) => {
 })
 
 client.on(Events.InteractionCreate, async (interaction) => {
-  if (!interaction.isButton()) return
-  const name_channel = `${interaction.user.username}-ticket`
+  const nameChannel = `${interaction.user.username}-ticket`.toLowerCase()
 
-  interaction.guild?.channels
-    .create({
-      name: name_channel,
-      type: ChannelType.GuildText,
+  if (interaction.isButton() && interaction.customId == 'butao') {
+    const channel = client.channels.cache.find((channel) => {
+      return channel instanceof TextChannel
+        ? channel.name === nameChannel
+        : false
     })
-    .then(async (channel) => {
-      const category = '1053806513862492211'
-      channel.setParent(category)
-      interaction.reply({
-        content: `O ticket foi criado no canal <#${channel.id}>`,
+    if (channel) {
+      await interaction.reply({
+        content: `<@!${interaction.user.id}>, você já tem um ticket criado no canal <#${channel.id}>`,
         ephemeral: true,
       })
+    } else {
+      interaction.guild?.channels
+        .create({
+          name: nameChannel,
+          type: ChannelType.GuildText,
+        })
+        .then(async (channel) => {
+          const category = '1053806513862492211'
+          channel.setParent(category)
+          interaction.reply({
+            content: `O ticket foi criado no canal <#${channel.id}>`,
+            ephemeral: true,
+          })
 
-      const embed = new EmbedBuilder()
-        .setColor(800080)
-        .setTitle('Razão do suporte')
-        .setDescription('Selecione a opção que melhor descreve o seu problema')
-        .setTimestamp()
-
-      const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
-        new StringSelectMenuBuilder()
-          .setCustomId('select')
-          .setPlaceholder('Nothing selected')
-          .addOptions(
-            {
-              label: '😡',
-              description: 'Problemas',
-              value: 'Problemas',
-            },
-            {
-              label: '❓',
-              description: 'Ajuda',
-              value: 'Ajuda',
-            }
-          )
-      )
-
-      const msg = await channel.send({
-        content: `<@!${interaction.user.id}>`,
-        embeds: [embed],
-        components: [row],
-      })
-
-      const collector = msg.createMessageComponentCollector({
-        componentType: ComponentType.StringSelect,
-        time: 20000,
-      })
-
-      collector.on('collect', (i) => {
-        if (i.user.id === interaction.user.id) {
-          if (msg.deletable) {
-            msg.delete().then(async () => {
-              const embed = new EmbedBuilder()
-                .setColor(800080)
-                .setDescription(
-                  `<@!${interaction.user.id}> Criou o **Ticket** pelo motivo・ ${i.values[0]}`
-                )
-                .setTimestamp()
-
-              const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-                new ButtonBuilder()
-                  .setCustomId('close-ticket')
-                  .setLabel('Fechar Ticket')
-                  .setEmoji('❌')
-                  .setStyle(ButtonStyle.Secondary)
-              )
-
-              const opened = await channel.send({
-                embeds: [embed],
-                components: [row],
-              })
-
-              opened.pin().then(() => {
-                opened.channel.bulkDelete(1)
-              })
-            })
-          }
-        }
-      })
-
-      collector.on('end', (collected) => {
-        if (collected.size < 1) {
-          interaction.user
-            .send(
-              `Você não selecionou nenhum motivo, o seu **Ticket** foi fechado.`
+          const embed = new EmbedBuilder()
+            .setColor(800080)
+            .setTitle('Razão do suporte')
+            .setDescription(
+              'Selecione a opção que melhor descreve o seu problema'
             )
-            .then(() => {
-              setTimeout(() => {
-                if (channel.deletable) {
-                  channel.delete()
-                }
-              }, 5000)
-            })
-        }
-        collector.stop()
-      })
-    })
+            .setTimestamp()
 
-  if (interaction.customId == 'close-ticket') {
-    // TODO: Delete a Ticket
-    // https://stackoverflow.com/questions/73096544/this-interaction-failed-buttons-discord-js
+          const row =
+            new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
+              new StringSelectMenuBuilder()
+                .setCustomId('select')
+                .setPlaceholder('Nothing selected')
+                .addOptions(
+                  {
+                    label: '😡',
+                    description: 'Problemas',
+                    value: 'Problemas',
+                  },
+                  {
+                    label: '❓',
+                    description: 'Ajuda',
+                    value: 'Ajuda',
+                  }
+                )
+            )
+
+          const msg = await channel.send({
+            content: `<@!${interaction.user.id}>`,
+            embeds: [embed],
+            components: [row],
+          })
+
+          const collector = msg.createMessageComponentCollector({
+            componentType: ComponentType.StringSelect,
+            time: 20000,
+          })
+
+          collector.on('collect', (i) => {
+            if (i.user.id === interaction.user.id) {
+              if (msg.deletable) {
+                msg.delete().then(async () => {
+                  const embed = new EmbedBuilder()
+                    .setColor(800080)
+                    .setDescription(
+                      `<@!${interaction.user.id}> Criou o **Ticket** pelo motivo・ ${i.values[0]}`
+                    )
+                    .setTimestamp()
+
+                  const opened = await channel.send({
+                    embeds: [embed],
+                  })
+
+                  opened.pin().then(() => {
+                    opened.channel.bulkDelete(1)
+                  })
+                })
+              }
+            }
+          })
+
+          collector.on('end', (collected) => {
+            if (collected.size < 1) {
+              interaction.user
+                .send(
+                  `Você não selecionou nenhum motivo, o seu **Ticket** foi fechado.`
+                )
+                .then(() => {
+                  setTimeout(() => {
+                    if (channel.deletable) {
+                      channel.delete()
+                    }
+                  }, 5000)
+                })
+            }
+            collector.stop()
+          })
+        })
+    }
   }
 })
 
