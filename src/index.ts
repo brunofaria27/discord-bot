@@ -17,6 +17,7 @@ import { configureRest } from './rest'
 import { pingCommand } from './commands/pingCommand'
 import { ticketCommand } from './commands/ticketCommand'
 import { messageSetagem } from './commands/setarCargo'
+import { announceCommand } from './commands/announceCommand'
 
 dotenv.config()
 
@@ -63,6 +64,9 @@ client.on('interactionCreate', async (interaction) => {
       break
     case 'setagem':
       messageSetagem(interaction)
+      break
+    case 'anuncio':
+      announceCommand(interaction)
       break
   }
 })
