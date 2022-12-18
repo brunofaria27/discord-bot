@@ -20,10 +20,22 @@ const commands: AppCommand[] = [
     description: 'Send an announcement to members',
     options: [
       {
+        name: 'title',
+        description: 'Titulo da mensagem',
+        type: 3,
+        required: true,
+      },
+      {
         name: 'mensagem',
         description: 'Mensagem para ser anunciada.',
         type: 3,
         required: true,
+      },
+      {
+        name: 'urlimage',
+        description: 'Imagem para ser anexada na mensagem.',
+        type: 11,
+        required: false,
       },
     ],
   },
