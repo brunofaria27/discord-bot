@@ -9,7 +9,11 @@ const commands: AppCommand[] = [
   },
   {
     name: 'ticket',
-    description: 'Marcelinho 5 + 8',
+    description: 'Create ticket embed',
+  },
+  {
+    name: 'setagem',
+    description: 'Create a embed for "Setagem"',
   },
 ]
 
