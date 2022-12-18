@@ -15,6 +15,18 @@ const commands: AppCommand[] = [
     name: 'setagem',
     description: 'Create a embed for "Setagem"',
   },
+  {
+    name: 'anuncio',
+    description: 'Send an announcement to members',
+    options: [
+      {
+        name: 'mensagem',
+        description: 'Mensagem para ser anunciada.',
+        type: 3,
+        required: true,
+      },
+    ],
+  },
 ]
 
 export const configureRest = async () => {
