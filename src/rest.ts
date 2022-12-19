@@ -39,6 +39,64 @@ const commands: AppCommand[] = [
       },
     ],
   },
+  {
+    name: 'adicionaradm',
+    description: 'Add a item in the chest.',
+    options: [
+      {
+        name: 'nomeitem',
+        description: 'Nome do item, igual o que está no baú.',
+        type: 3,
+        required: true,
+      },
+      {
+        name: 'quantidade',
+        description: 'Quantidade a ser adicionada no item.',
+        type: 4,
+        required: true,
+      },
+    ],
+  },
+  {
+    name: 'adicionar',
+    description: 'Add a item in the chest.',
+    options: [
+      {
+        name: 'nomeitem',
+        description: 'Nome do item, igual o que está no baú.',
+        type: 3,
+        required: true,
+      },
+      {
+        name: 'quantidade',
+        description: 'Quantidade a ser adicionada no item.',
+        type: 4,
+        required: true,
+      },
+    ],
+  },
+  {
+    name: 'remover',
+    description: 'Remove a item in the chest.',
+    options: [
+      {
+        name: 'nomeitem',
+        description: 'Nome do item, igual o que está no baú.',
+        type: 3,
+        required: true,
+      },
+      {
+        name: 'quantidade',
+        description: 'Quantidade a ser removido do item.',
+        type: 4,
+        required: true,
+      },
+    ],
+  },
+  {
+    name: 'bau',
+    description: 'List all itens in the baú"',
+  },
 ]
 
 export const configureRest = async () => {
