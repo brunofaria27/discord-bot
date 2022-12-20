@@ -36,8 +36,13 @@ export const consultarBau = async (
           value: `Quantidade: ${result[i].qnt}`,
         })
       }
+
+      await interaction.reply({ embeds: [embed] })
+    } else {
+      embed.setDescription(
+        'O baú encontra sem nenhum item cadastrado pelo líder da facção.'
+      )
     }
-    await interaction.reply({ embeds: [embed] })
   }
 }
 
