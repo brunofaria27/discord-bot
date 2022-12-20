@@ -18,6 +18,15 @@ import { pingCommand } from './commands/pingCommand'
 import { ticketCommand } from './commands/ticketCommand'
 import { messageSetagem } from './commands/setarCargo'
 import { announceCommand } from './commands/announceCommand'
+import * as mongoDB from 'mongodb'
+import {
+  addItens,
+  consultarBau,
+  removeItens,
+  updateItens,
+} from './commands/bauSchemaCommands'
+
+export const collections: { chest?: mongoDB.Collection } = {}
 
 dotenv.config()
 
@@ -32,10 +41,30 @@ const client = new Client({
   ],
 })
 
+export async function connectToDatabase() {
+  dotenv.config()
+  const client: mongoDB.MongoClient = new mongoDB.MongoClient(
+    process.env.MONGO_TOKEN
+  )
+  await client.connect()
+  const db: mongoDB.Db = client.db(process.env.DB_NAME)
+  const chestCollection: mongoDB.Collection = db.collection(
+    process.env.COLLECTION_NAME
+  )
+
+  collections.chest = chestCollection
+
+  console.log(
+    `Successfully connected to database: ${db.databaseName} and collection: ${chestCollection.collectionName}`
+  )
+}
+
 client.on('ready', () => {
+  connectToDatabase()
+
   console.log(`Hi, ${client.user?.username} is now online!`)
 
-  const atividades = ['Developed by Sure & Faria', 'Moderando Ballas! 👻', '💩']
+  const atividades = ['Developed by Faria', 'Moderando Ballas! 👻', '💩']
 
   let index = 0
 
@@ -67,6 +96,18 @@ client.on('interactionCreate', async (interaction) => {
       break
     case 'anuncio':
       announceCommand(interaction)
+      break
+    case 'adicionaradm':
+      addItens(interaction)
+      break
+    case 'adicionar':
+      updateItens(interaction)
+      break
+    case 'remover':
+      removeItens(interaction)
+      break
+    case 'bau':
+      consultarBau(interaction)
       break
   }
 })
