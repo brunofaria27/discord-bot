@@ -6,7 +6,6 @@ import {
   UserContextMenuCommandInteraction,
 } from 'discord.js'
 
-import { ObjectId } from 'mongodb'
 import { collections } from '../index'
 
 // CONSULTAR BAU

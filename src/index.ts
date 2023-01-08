@@ -18,7 +18,9 @@ import { pingCommand } from './commands/pingCommand'
 import { ticketCommand } from './commands/ticketCommand'
 import { messageSetagem } from './commands/setarCargo'
 import { announceCommand } from './commands/announceCommand'
+
 import * as mongoDB from 'mongodb'
+
 import {
   addItens,
   consultarBau,
@@ -64,7 +66,7 @@ client.on('ready', () => {
 
   console.log(`Hi, ${client.user?.username} is now online!`)
 
-  const atividades = ['Developed by Faria', 'Moderando Ballas! 👻', '💩']
+  const atividades = ['Developed by Faria', 'Ballas! 👻', '💩']
 
   let index = 0
 
