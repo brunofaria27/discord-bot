@@ -1,7 +1,2 @@
-# Algo
-
-### Examples
-
-* https://github.com/pgamerx/djs-tickets/blob/master/src/index.ts
-* https://github.com/astrxnomo/discord-ticket-bot-py/wiki/Running-the-bot
-* https://discord.js.org/#/docs/discord.js/stable/general/welcome
+# Discord BOT
+Feito com TypeScript, para aprender um pouco da linguagem além de o uso do banco de dados e VPS para manter o BOT online `24/7`. O intuito do BOT era automatizar um servidor para saber quais os deveres os usuários estavam fazendo dentro de um jogo multiplayer.
